@@ -14,7 +14,7 @@ def index(request):
         request,
         "index.html",
         {
-            "title": "الرئيسية",
+            "title": "HomePage",
             "departments": departments,
         },
     )
@@ -62,7 +62,7 @@ def products(request, product_id=None, product_slug=None):
             request,
             "products/index.html",
             {
-                "title": "المنتجات",
+                "title": "Products",
                 "search_form": filter_form.form,
                 "page": page_obj,
             },

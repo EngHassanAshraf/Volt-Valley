@@ -21,23 +21,23 @@ class RegisterForm(ModelForm):
     """User registration form with email and password."""
 
     password1 = CharField(
-        label="كلمة المرور",
+        label="Password",
         widget=PasswordInput(
             attrs={
                 "class": "form-control",
                 "minlength": "10",
                 "required": True,
-                "placeholder": "كلمة المرور",
+                "placeholder": "Password",
             }
         ),
     )
     password2 = CharField(
-        label="تأكيد كلمة المرور",
+        label="Confirm Password",
         widget=PasswordInput(
             attrs={
                 "class": "form-control",
                 "required": True,
-                "placeholder": "تأكد كلمة المرور",
+                "placeholder": "Confirm Password",
             }
         ),
     )
@@ -50,21 +50,21 @@ class RegisterForm(ModelForm):
                 attrs={
                     "class": "form-control text-start",
                     "required": True,
-                    "placeholder": "الاسم الاول",
+                    "placeholder": "First Name",
                 }
             ),
             "last_name": TextInput(
                 attrs={
                     "class": "form-control text-start",
                     "required": True,
-                    "placeholder": "الاسم الثاني",
+                    "placeholder": "Last Name",
                 }
             ),
             "email": EmailInput(
                 attrs={
                     "class": "col form-control text-start",
                     "required": True,
-                    "placeholder": "الايميل",
+                    "placeholder": "Email",
                 }
             ),
         }
@@ -74,7 +74,7 @@ class RegisterForm(ModelForm):
         password1 = self.cleaned_data.get("password1")
         password2 = self.cleaned_data.get("password2")
         if password1 and password2 and password1 != password2:
-            raise ValidationError("كلمة السر ليست متطابقة")
+            raise ValidationError("Passwords Miss Match")
         return password2
 
     def save(self, commit=True):

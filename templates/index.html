@@ -1,0 +1,31 @@
+{% include "shared/base.html" %}
+{% load static %}
+
+<main class="">
+  <div class="px-4 pt-5 text-center border-bottom">
+    <h1 style="font-weight: bold;">
+      Volt Valley For Electronics
+    </h1>
+    <p class="col-lg-6 lead mx-auto mb-4" style="color: gray;">
+      تأسست منذ ثمانينات القرن الماضي ويقدم أبوناشي منتجات عالية الجودة
+      وبأسعار تنافسية والعديد من المميزات الأخرى
+    </p>
+
+    <div class="container overflow-hidden main-image-container px-5">
+      <img src="{% static 'images/main/main.jpeg' %}" class="img-fluid border rounded-3 shadow mb-4 main-image"
+        width="700" height="500" />
+    </div>
+  </div>
+
+  <div class="container mt-5" dir="auto">
+    <h2 class="pb-2 mb-3 border-bottom">Valley Departments</h2>
+    <div class="row row-cols-lg-3 row-cols-md-3 row-cols-sm-2">
+      {% for department in departments %}
+      {% include "components/department_card.html" %}
+      {% endfor %}
+    </div>
+  </div>
+
+</main>
+
+{% include "shared/footer.html" %}

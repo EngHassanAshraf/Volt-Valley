@@ -1,0 +1,51 @@
+<div class="{% if request.user.is_authenticated %}mb-5{% else %}mb-3{% endif %}">
+    <a 
+        href="/products/?{% for category in department.category.all %}{% if not forloop.first %}&{% endif %}category={{category.id}}{% endfor %}"
+        class="card card-cover h-100 w-100 overflow-hidden text-bg-dark rounded-3 text-decoration-none image-card"
+        style="background-image: url('{{ department.image.url }}');">
+        <div class="card card-cover h-100 w-100 overflow-hidden rounded-2 title-card">
+            <div class="d-flex flex-column h-100 w-100 p-5 pb-3">
+                <h3 class="pt-5 text-white">
+                    {{department.title}}
+                    {% if department.is_deleted %}
+                        <span class="badge bg-danger rounded-pill p-0 pb-2 pt-1 ms-2 fs-6 fw-lighter">محذوف</span>
+                    {% endif %}
+                </h3>
+            </div>
+        </div>
+    </a>
+    {% if request.user.is_authenticated %}
+    <div class="row m-0 bg-dark rounded-5 d-flex justify-content-center">
+        <div class="col-auto">
+            <a class="btn border-0 text-warning p-0" style="cursor: pointer"
+                onclick="location.href= '{% url 'dashboard:edit-department' department_id=department.id department_slug=department.slug %}'">
+                <span class="bi"> تعديل</span>
+            </a>
+        </div>
+        <div class="col-auto">
+            {% if not department.is_deleted %}
+            <form action="{% url 'dashboard:delete-department' department.slug %}" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="department" value="{{department.id}}" />
+                <input type="hidden" name="origin" value="{{request.path}}" />
+                <button type="submit" class="btn border-0 text-danger p-0">
+                    <span class="bi"> حذف</span>
+                </button>
+            </form>
+            {% endif %}
+        </div>
+        <div class="col-auto">
+            <form action="{% url 'dashboard:erase-department' department.slug %}" method="post">
+                <div class="col-auto">
+                    {% csrf_token %}
+                    <input type="hidden" name="department" value="{{department.id}}">
+                    <button type="submit" class="btn btn-outline-danger border-0 p-0 delete-forever"
+                        onclick="return confirm('هل أنت متأكد من حذف القسم نهائيا؟')">
+                        <span class="bi"> حذف نهائي</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    {% endif %}
+</div>

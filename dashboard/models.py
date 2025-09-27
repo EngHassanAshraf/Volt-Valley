@@ -45,7 +45,7 @@ class SoftDelete(models.Model):
         - soft delete mechanism using an `is_deleted` flag.
     """
 
-    is_deleted = models.BooleanField(default=False, verbose_name="محذوف؟")
+    is_deleted = models.BooleanField(default=False, verbose_name="Deleted?")
 
     class Meta:
         """Abstract Class"""
@@ -61,8 +61,8 @@ class Timestamped(models.Model):
         - updated_at field to hold the datetime of updating an object
     """
 
-    created_at = models.DateTimeField(auto_now_add=True, verbose_name="وقت الانشاء")
-    updated_at = models.DateTimeField(auto_now=True, verbose_name="وقت التعديل")
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name="Created At")
+    updated_at = models.DateTimeField(auto_now=True, verbose_name="Updated At")
 
     class Meta:
         """Abstract Class"""
@@ -95,13 +95,13 @@ class Department(IdSlug, Timestamped, SoftDelete):
 
     title = models.CharField(
         max_length=200,
-        verbose_name="العنوان",
+        verbose_name="Title",
         null=True,
         blank=True,
     )
     image = models.ImageField(
         upload_to="departments/%Y/%m/%d/",
-        verbose_name="الصورة",
+        verbose_name="Image",
         validators=[validate_file_size],
     )
 
@@ -133,14 +133,17 @@ class Category(IdSlug, Timestamped):
     Model representing a products ctegoriss with category name.
     """
 
-    name = models.CharField(max_length=50, verbose_name="الفئة")
+    name = models.CharField(max_length=50, verbose_name="Category Name")
     department = models.ForeignKey(
         Department,
         related_name="category",
         on_delete=models.SET_NULL,
-        verbose_name="القسم",
+        verbose_name="Department",
         null=True,
     )
+
+    class Meta:
+        verbose_name_plural = "categories"
 
     def __str__(self):
         return str(self.name)
@@ -161,28 +164,28 @@ class Product(IdSlug, Timestamped, SoftDelete):
     Model representing a product with various attributes including category, price, and stock.
     """
 
-    name = models.CharField(max_length=150, verbose_name="إسم المنتج")
-    description = models.TextField(blank=True, verbose_name="وصف المنتج")
-    qty = models.PositiveSmallIntegerField(default=0, verbose_name="كمية المنتج")
+    name = models.CharField(max_length=150, verbose_name="Name")
+    description = models.TextField(blank=True, verbose_name="Description")
+    qty = models.PositiveSmallIntegerField(default=0, verbose_name="Quantity")
     price = models.DecimalField(
         max_digits=6,
         decimal_places=2,
         default=0.0,
-        verbose_name="سعر الوحده",
+        verbose_name="Unit Price",
     )
 
     offer = models.DecimalField(
         max_digits=4,
         decimal_places=2,
         default=0.0,
-        verbose_name="نسبة الخصم",
+        verbose_name="Discount",
     )
 
     category = models.ForeignKey(
         Category,
         related_name="product",
         on_delete=models.SET_NULL,
-        verbose_name="الفئة",
+        verbose_name="Category",
         null=True,
     )
 
@@ -227,16 +230,16 @@ class Media(Timestamped):
     ]
 
     product = models.ForeignKey(
-        Product, related_name="media", on_delete=models.CASCADE, verbose_name="المنتج"
+        Product, related_name="media", on_delete=models.CASCADE, verbose_name="Product"
     )
     file = models.FileField(
         upload_to="products/%Y/%m/%d/",
         default="products/default.png",
-        verbose_name="الملف",
+        verbose_name="File",
         validators=[validate_file_size],
     )
     media_type = models.CharField(
-        max_length=50, choices=MEDIA_TYPE_CHOICES, verbose_name="نوع الملف"
+        max_length=50, choices=MEDIA_TYPE_CHOICES, verbose_name="File Type"
     )
 
     def __str__(self):

@@ -35,20 +35,20 @@ def ulogin(request):
         user = authenticate(request=request, username=email, password=password)
         if user:
             if is_logged_in(user)[0]:
-                return redirect("mainpages:index")
+                return redirect("store:index")
             login(request, user)
             logger.info(f"user {user.email} logged in")
             return redirect("dashboard:index")
         else:
             logger.warning(f"someone with {email} try to logged in")
             messages.warning(request, "حدث خطأ ما")
-            return redirect("mainpages:index")
+            return redirect("store:index")
 
     return render(
         request,
         "market_admin/ulogin.html",
         {
-            "title": "تسجيل دخول",
+            "title": "Login",
         },
     )
 
@@ -73,7 +73,7 @@ def register(request):
         request,
         "market_admin/register.html",
         {
-            "title": "إنشاء مدير",
+            "title": "Creating Admin",
             "form": form,
         },
     )
@@ -84,7 +84,7 @@ def ulogout(request):
     if request.user.is_authenticated:
         logger.info(f"{request.user.email} logged out")
         logout(request)
-    return redirect("mainpages:index")
+    return redirect("store:index")
 
 
 # user
@@ -104,7 +104,7 @@ def get_auth_users(request):
         request,
         "market_admin/users.html",
         {
-            "title": "المديرين",
+            "title": "Admins",
             "users": users,
         },
     )
@@ -142,7 +142,7 @@ def deactivate_user(request):
         else:
             return redirect("dashboard:index")
     else:
-        return redirect("mainpages:index")
+        return redirect("store:index")
 
 
 @ratelimit(key="ip", rate="10/m", method="GET", block=True)
@@ -159,7 +159,7 @@ def activate_user(request):
             user.save()
             return redirect("dashboard:users")
     else:
-        return redirect("mainpages:index")
+        return redirect("store:index")
 
 
 @ratelimit(key="ip", rate="10/m", method="GET", block=True)
@@ -175,7 +175,7 @@ def erase_user(request):
         user.delete()
         return redirect("dashboard:users")
     else:
-        return redirect("mainpages:index")
+        return redirect("store:index")
 
 
 # main page
@@ -189,7 +189,7 @@ def index(request):
         request,
         "dashboard/index.html",
         {
-            "title": "الرئيسية",
+            "title": "HomePage",
             "categories": Category.objects.all(),
         },
     )
@@ -224,7 +224,7 @@ def products(request, product_id=None, product_slug=None):
                 request,
                 "dashboard/products.html",
                 {
-                    "title": "المنتجات",
+                    "title": "Products",
                     "search_form": filter_form.form,
                     "page": page_obj,
                 },
@@ -273,7 +273,7 @@ def add_product(request):
         request,
         "dashboard/product/add_product.html",
         {
-            "title": "إضافة منتج",
+            "title": "Adding Product",
             "product_form": product_form,
         },
     )
@@ -346,7 +346,7 @@ def edit_product(request, product_id, product_slug):
         request,
         "dashboard/product/edit_product.html",
         {
-            "title": "تعديل منتج",
+            "title": "Editing Product",
             "product_form": product_form,
             "product_medias": product_medias_forms,
         },
@@ -363,13 +363,13 @@ def delete_product(request, product_slug):
         origin = request.POST.get("origin") or "dashboard:products"
         product = Product.objects.get(id=product_id)
         if product.is_deleted:
-            return redirect("mainpages:index")
+            return redirect("store:index")
         else:
             product.is_deleted = True
             product.save()
             return redirect(origin)
     else:
-        return redirect("mainpages:index")
+        return redirect("store:index")
 
 
 @ratelimit(key="ip", rate="10/m", method="GET", block=True)
@@ -384,7 +384,7 @@ def erase_product(request, product_slug):
         product.delete()
         return redirect("dashboard:products")
     else:
-        return redirect("mainpages:index")
+        return redirect("store:index")
 
 
 # Department
@@ -400,7 +400,7 @@ def get_departments(request):
         request,
         "dashboard/departments.html",
         {
-            "title": "الاقسام",
+            "title": "Departments",
             "departments": departments,
         },
     )
@@ -447,7 +447,7 @@ def add_department(request):
         request,
         "dashboard/department/add_department.html",
         {
-            "title": "إضافة قسم",
+            "title": "Adding Department",
             "categories": categories,
             "department": department_form,
         },
@@ -517,7 +517,7 @@ def edit_department(request, department_id, department_slug):
         request,
         "dashboard/department/edit_department.html",
         {
-            "title": f"تعديل القسم: {department.title}",
+            "title": f"Editing Department: {department.title}",
             "department": department,
             "categories": categories,
             "selected_categories": department_categories,
@@ -536,13 +536,13 @@ def delete_department(request, department_slug):
         department_id = request.POST.get("department")
         department = Department.objects.get(id=department_id)
         if department.is_deleted:
-            return redirect("mainpages:index")
+            return redirect("store:index")
         else:
             department.is_deleted = True
             department.save()
             return redirect("dashboard:departments")
     else:
-        return redirect("mainpages:index")
+        return redirect("store:index")
 
 
 @ratelimit(key="ip", rate="10/m", method="GET", block=True)
@@ -558,7 +558,7 @@ def erase_department(request, department_slug):
         department.delete()
         return redirect("dashboard:departments")
     else:
-        return redirect("mainpages:index")
+        return redirect("store:index")
 
 
 # Offer
@@ -592,7 +592,7 @@ def add_offer(request, product_id, product_slug):
         request,
         "dashboard/offer/offer.html",
         {
-            "title": "إضافة عرض",
+            "title": "Adding Offer",
             "product": product,
             # "breadcrumbs": breadcrumbs,
         },
@@ -626,7 +626,7 @@ def edit_offer(request, product_id, product_slug):
         request,
         "dashboard/offer/offer.html",
         {
-            "title": "تعديل عرض",
+            "title": "Editing Offer",
             "product": product,
             # "breadcrumbs": breadcrumbs,
         },
@@ -657,7 +657,7 @@ def add_category(request):
         request,
         "dashboard/category/category.html",
         {
-            "title": "إضافة فئة",
+            "title": "Adding Category",
             "form": category_form,
             # "breadcrumbs": breadcrumbs,
         },
@@ -686,7 +686,7 @@ def edit_category(request, category_id, category_slug):
     return render(
         request,
         "dashboard/category/category.html",
-        {"title": "تعديل فئة", "form": category_form},
+        {"title": "Editing Category", "form": category_form},
     )
 
 
@@ -706,7 +706,7 @@ def erase_category(request, category_slug):
         department.save()
         return redirect(origin)
     else:
-        return redirect("mainpages:index")
+        return redirect("store:index")
 
 
 # @ratelimit(key="ip", rate="10/m", method="GET", block=True)

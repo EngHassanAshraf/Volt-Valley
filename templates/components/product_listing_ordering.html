@@ -1,0 +1,34 @@
+<div class="col-lg-2 col-md-2 col-sm-5 mb-1 me-1">
+  <select class="form-select form-select-sm w-100" name="pord" id="pord" onchange="productsOrdering()">
+    <option value=" " {% if not request.GET.pord %}selected{% endif %}>Order By</option>
+    <option value="la" {% if request.GET.pord == 'la' %}selected{% endif %}>
+      Newest
+    </option>
+    <option value="of" {% if request.GET.pord == 'of' %}selected{% endif %}>Oldest</option>
+    <option value="lp" {% if request.GET.pord == 'lp' %}selected{% endif %}>
+      Price: Low to High
+    </option>
+    <option value="hp" {% if request.GET.pord == 'hp' %}selected{% endif %}>
+          Price: High to Low
+    </option>
+    <option value="dp" {% if request.GET.pord == 'dp' %}selected{% endif %}>
+      Discount: Low to High 
+    </option>
+    <option value="dpr" {% if request.GET.pord == 'dpr' %}selected{% endif %}>
+      Discount: High to Low
+    </option>
+  </select>
+</div>
+
+<div class="col-lg-2 col-md-2 col-sm-5 mb-1 me-1">
+  <select class="form-select form-select-sm w-100" name="ppp" id="ppp" onchange="productsPerPage()">
+    <option value=" " {% if not request.GET.ppp %}selected{% endif %}>
+      Products Per Page
+    </option>
+    <option value="5" {% if request.GET.ppp == '5' %}selected{% endif %} >5</option>
+    <option value="10" {% if request.GET.ppp == '10' %}selected{% endif %} >10</option>
+    <option value="15" {% if request.GET.ppp == '15' %}selected{% endif %} >15</option>
+    <option value="20" {% if request.GET.ppp == '20' %}selected{% endif %} >20</option>
+    <option value="25" {% if request.GET.ppp == '25' %}selected{% endif %} >25</option>
+  </select>
+</div>

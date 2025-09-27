@@ -1,0 +1,212 @@
+{% include "shared/base.html" %}
+
+
+
+<main class="flex-shrink">
+
+  <div class="container-fluid py-5 mb-3 mx-auto border-bottom text-center">
+
+    <h1 class="display-5 fw-bold">Volt Valley Products</h1>
+    <p class="lead text-muted" style="color: gray;">
+      تقدم فروع أبوناشي منتجات بجودة عالية وبأسعار تنافسية والعديد من
+      المميزات الأخرى
+    </p>
+
+    <div class="col d-flex justify-content-end align-items-center">
+      {% include "components/product_listing_ordering.html" %}
+    </div>
+  </div>
+
+
+  {% if page %}
+  {% if page|length > 15 %}
+  <div class="d-flex align-items-center justify-content-around mt-5 p-0 px-3" aria-label="Page navigation">
+    <ul class="pagination">
+
+      {% if page.has_previous %}
+      <li class="page-item col-auto  p-0">
+        <a class="page-link px-1"
+          href="?page=1{% for key,value in request.GET.items %}{% if key != 'page' %}&{{key}}={{value}}{% endif %}{% endfor %}"
+          aria-label="first">
+          <span aria-hidden="true">First</span>
+        </a>
+      </li>
+      <li class="page-item col-auto  p-0">
+        <a class="page-link px-2"
+          href="?page={{page.previous_page_number}}{% for key,value in request.GET.items %}{% if key != 'page' %}&{{key}}={{value}}{% endif %}{% endfor %}"
+          aria-label="Last">
+          <span aria-hidden="true">&laquo;</span>
+        </a>
+      </li>
+      {% endif %}
+
+      {% if page.paginator.num_pages > 1 %}
+      <li class="page-item col-4 p-0" style="border-right: 1px solid rgb(219, 219, 219); border-radius: 10%;">
+        <input class="page-link text-start px-1 w-100 border-0 border-top border-bottom" id="id_page-number"
+          placeholder="Page No." type="number" name="page">
+      </li>
+      {% endif %}
+
+      <li class="page-item col-auto p-0">
+        <div class="page-link px-1">
+          {{page.number}} from {{page.paginator.num_pages}}
+        </div>
+      </li>
+
+      {% if page.has_next %}
+      <li class="page-item col-auto  p-0">
+        <a class="page-link px-2"
+          href="?page={{page.next_page_number}}{% for key,value in request.GET.items %}{% if key != 'page' %}&{{key}}={{value}}{% endif %}{% endfor %}"
+          aria-label="next">
+          <span aria-hidden="true">&raquo;</span>
+        </a>
+      </li>
+      <li class="page-item col-auto  p-0">
+        <a class="page-link px-1"
+          href="?page={{page.paginator.num_pages}}{% for key,value in request.GET.items %}{% if key != 'page' %}&{{key}}={{value}}{% endif %}{% endfor %}"
+          aria-label="last">
+          <span aria-hidden="true">Last</span>
+        </a>
+      </li>
+      {% endif %}
+    </ul>
+  </div>
+  {% endif %}
+
+  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-6 m-0">
+    {% for product in page %}
+    <div class="col-6 mb-3">
+      {% include "components/product_mincard.html" %}
+    </div>
+    {% endfor %}
+  </div>
+
+  {% if page|length <= 15 %} <div class="d-flex align-items-center justify-content-around mt-5 p-0 px-3"
+    aria-label="Page navigation">
+    <ul class="pagination">
+
+      {% if page.has_previous %}
+      <li class="page-item col-auto  p-0">
+        <a class="page-link px-1"
+          href="?page=1{% for key,value in request.GET.items %}{% if key != 'page' %}&{{key}}={{value}}{% endif %}{% endfor %}"
+          aria-label="first">
+          <span aria-hidden="true">First</span>
+        </a>
+      </li>
+      <li class="page-item col-auto  p-0">
+        <a class="page-link px-2"
+          href="?page={{page.previous_page_number}}{% for key,value in request.GET.items %}{% if key != 'page' %}&{{key}}={{value}}{% endif %}{% endfor %}"
+          aria-label="last">
+          <span aria-hidden="true">&laquo;</span>
+        </a>
+      </li>
+      {% endif %}
+
+      {% if page.paginator.num_pages > 1 %}
+      <li class="page-item col-4 p-0" style="border-right: 1px solid rgb(219, 219, 219); border-radius: 10%;">
+        <input class="page-link text-start px-1 w-100 border-0 border-top border-bottom" id="id_page-number"
+          placeholder="Page No." type="number" name="page">
+      </li>
+      {% endif %}
+
+      <li class="page-item col-auto p-0">
+        <div class="page-link px-1">
+          {{page.number}} from {{page.paginator.num_pages}}
+        </div>
+      </li>
+
+      {% if page.has_next %}
+      <li class="page-item col-auto  p-0">
+        <a class="page-link px-2"
+          href="?page={{page.next_page_number}}{% for key,value in request.GET.items %}{% if key != 'page' %}&{{key}}={{value}}{% endif %}{% endfor %}"
+          aria-label="next">
+          <span aria-hidden="true">&raquo;</span>
+        </a>
+      </li>
+      <li class="page-item col-auto  p-0">
+        <a class="page-link px-1"
+          href="?page={{page.paginator.num_pages}}{% for key,value in request.GET.items %}{% if key != 'page' %}&{{key}}={{value}}{% endif %}{% endfor %}"
+          aria-label="last">
+          <span aria-hidden="true">Last</span>
+        </a>
+      </li>
+      {% endif %}
+    </ul>
+    </div>
+    {% endif %}
+
+    {% else %}
+    <div class="container my-5">
+      <p>• No Products</p>
+    </div>
+    {% endif %}
+    <div class="sidebar bg-light">
+
+      <div class="header">
+        <h5 style="color: var(--primary-color) !important;">
+          Find a Product
+        </h5>
+      </div>
+
+      <div class="body">
+        <div class="flex-shrink-0 p-3">
+          <form method="get">
+            <ul class="list-unstyled ps-0">
+              <li class="mb-1">
+                <div class="col-12">
+                  <label class="">{{search_form.name.label}}</label>
+                  <input type="text" name="name" class="form-control p-1" id="id_name" value="{{request.GET.name}}">
+                </div>
+              </li>
+
+              <li class="border-top mb-1">
+                <div class="col p-1">
+                  <label class="form-label">{{search_form.price.label}}</label>
+
+                  <input type="number" id="id_price_0" name="price_min" class="form-control text-start mb-1"
+                    placeholder="from" value="{{request.GET.price_min}}">
+
+                  <input type="number" id="id_price_1" name="price_max" class="form-control text-start mb-1"
+                    placeholder="to" value="{{request.GET.price_max}}">
+                </div>
+              </li>
+
+              <li class="border-top mb-1">
+                <div class="col p-1">
+                  <label class="">{{search_form.category.label}}</label>
+                  {{search_form.category}}
+                </div>
+              </li>
+
+              <li class="border-top mb-1">
+                <div class="col p-1">
+                  <label class="">{{search_form.vendor.label}}</label>
+                  {{search_form.vendor}}
+                </div>
+              </li>
+
+              <li class="border-top mt-3"></li>
+
+              <li class="row mt-2">
+                <div class="col d-flex justify-content-around align-items-start">
+                  <button type="submit" class="btn"
+                    style="color: var(--light-color); background-color: var(--primary-color);">
+                    Filter
+                  </button>
+                </div>
+
+                <div class="col d-flex justify-content-around align-items-start">
+                  <a class="btn btn-warning" onclick="location.href='/products/'">
+                    Reset
+                  </a>
+                </div>
+              </li>
+            </ul>
+          </form>
+        </div>
+      </div>
+    </div>
+  </main>
+
+
+{% include "shared/footer.html" %}

@@ -1,0 +1,30 @@
+<a href="{% url 'store:product' product_id=product.id product_slug=product.slug %}" class="text-decoration-none">
+<div class="card text-white">
+    <div class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+        {% for media in product.media.all %}
+        {% if media.media_type == "image" %}
+        <div class="carousel-item w-100 {% if forloop.first %}active{% endif %}" style="height:200px;">
+            <img src="{{media.file.url}}" class="d-block w-100 h-100 img-thumbnail"/>
+        </div>
+        {% endif %}
+        {% endfor %}
+        </div>
+    </div>
+    <div
+        class="card-img-overlay d-flex align-items-lg-center align-items-sm-start align-items-md-start"
+        style="background-color:rgba(0, 0, 0, 0.384);"
+        title="{{product.name}}">
+        <h6 class="card-title" >
+            {% if product.offer %}
+            <span class="badge text-bg-danger">
+                %{{product.offer|floatformat:"0"}}
+            </span>
+            {% endif %}
+            {{product.name}}
+        </h6>
+        
+    </div>
+</div> 
+
+</a>

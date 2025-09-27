@@ -1,0 +1,45 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <title>{{ title }} • لوحة التحكم</title>
+  {% include "shared/head.html" %}
+</head>
+
+<body>
+    
+  <nav class="navbar bg-light border">
+    <div class="col-auto m-0">
+      <div class="fw-bolder">
+          أبوناشي للإلكترونيات <span class="fw-normal">مرحبا، {{request.user.first_name}}</span>
+      </div>
+    </div>
+    <ul class="navbar-nav flex-row d-lg-none">
+      <li class="nav-item text-nowrap">
+        <button
+          class="nav-link px-3 text-black"
+          type="button"
+          data-bs-toggle="offcanvas"
+          data-bs-target="#sidebarMenu"
+          aria-controls="sidebarMenu"
+          aria-expanded="false"
+          aria-label="تبديل التنقل"
+          >
+          <i class="bi bi-list"></i>
+        </button>
+      </li>
+    </ul>
+  </nav>
+
+  <div class="container-fluid">
+    <div class="row">
+      {% include "shared/admin_sidebar.html" %}
+      <div class="col-lg-10">
+        {% block content %}
+        {% endblock content %}
+      </div>
+    </div>
+  </div>
+
+
+  {% include "shared/footer.html" %}

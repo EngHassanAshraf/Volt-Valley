@@ -1,0 +1,109 @@
+{% extends "shared/admin_panel.html" %}
+{% block content %}
+<div class="container-fluid py-5 mb-1 mx-auto bg-light border border-top-0 rounded-bottom-3 text-center">
+    <h1 class="display-5 fw-bold">مديري الموقع</h1>
+    <p class="lead text-muted">يمكنك متابعة مديري الموقع</p>
+</div>
+<div class="col-auto">
+    {% if users %}
+    <div class="table-responsive">
+        <table class="table mt-1 mb-5" style="border: 1px solid gray">
+            <tr class="text-center table-secondary">
+                <th>#</th>
+                <th>الاسم</th>
+                <th>اسم المستخدم</th>
+                <th>الايميل</th>
+                <th>الجروب</th>
+                <th>مسجل دخول؟</th>
+                <th>اخر عملية تسجيل دخول</th>
+                <th>تاريخ الانشاء</th>
+                <th></th>
+            </tr>
+            {% for user, logged_in in users.items %}
+            <tr class="text-center">
+                <td>{{ forloop.counter }}</td>
+                <td>{{ user.get_full_name }}</td>
+                <td>{{ user.username }}</td>
+                <td>{{ user.email }}</td>
+                <td>
+                    <ul class="list-unstyled">
+                        {% for group in user.groups.all %}
+                        <li class="list-group-item">{{group.name}}</li>
+                        {% endfor %}
+                    </ul>
+                </td>
+                <td>
+                    {% if logged_in %}
+                    نعم
+                    {% else %}
+                    لا
+                    {% endif %}
+                </td>
+                <td>{{ user.last_login|default:"لم يتم تسجيل الدخول" }}</td>
+                <td>{{ user.date_joined }}</td>
+                <td>
+                    <div class="">
+                        <button class="dropdown-toggle btn border-0 text-primary" data-bs-toggle="dropdown"
+                            aria-expanded="false" style="text-decoration: none; color: black">
+                            المزيد
+                        </button>
+                        <ul class="dropdown-menu shadow text-center" data-bs-theme="dark">
+                            <li>
+                                <a class="dropdown-item text-warning disabled text-muted"
+                                    onclick="location.href='#'"
+                                    style="cursor: pointer"> <i class="bi bi-pen"></i> تعديل المستخدم</a>
+                            </li>
+                            <li>
+                                <hr class="dropdown-divider" />
+                            </li>
+                            <li>
+                                {% if user.is_active %}
+                                <form action="{% url 'dashboard:deactivate-user' %}"
+                                    method="post">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="user" value="{{user.id}}">
+                                    <button class="dropdown-item text-danger" type="submit">
+                                        <i class="bi bi-person-x-fill"></i> تعطيل
+                                    </button>
+                                </form>
+                                {% else %}
+                                <form action="{% url 'dashboard:activate-user' %}"
+                                method="post">
+                                {% csrf_token %}
+                                <input type="hidden" name="user" value="{{user.id}}">
+                                <button class="dropdown-item text-success" type="submit">
+                                    <i class="bi bi-person-check-fill"></i> تفعيل
+                                </button>
+                                </form>
+                                {% endif %}
+                            </li>
+                            <li>
+                                <form class="col-auto"
+                                    action="{% url 'dashboard:erase-user' %}"
+                                    method="post">
+                                    {% csrf_token %}
+                                    <div class="col-auto">
+                                        <input type="hidden" name="user" value="{{user.id}}">
+                                    </div>
+                                    <div class="col-auto">
+                                        <button type="submit" class="btn btn-outline-danger border-0"
+                                            onclick="return confirm('هل أنت متأكد من حذف المستخدم هائيا؟')">
+                                            <span class="bi bi-trash"> حذف نهائي</span>
+                                        </button>
+                                    </div>
+                                </form>
+                            </li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    {% else %}
+    <div class="container">
+        • لا يوجود مديرين غيرك
+    </div>
+    {% endif %}
+</div>
+{% endblock content %}

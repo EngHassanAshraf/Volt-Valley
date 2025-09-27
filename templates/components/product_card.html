@@ -1,0 +1,121 @@
+
+<div class="container-fluid">
+    <div class="row mb-3 bg-white p-3 shadow rounded-3">
+        {% if product.media.all %}
+        <div class="col-lg-4 col-md-5 col-sm-6 ">
+            <div class="row">
+                <div class="col-2">
+                    {% for media in product.media.all %}
+                    <div class="row mb-1" style="height: 50px;">
+                        {% if "image" in media.media_type %}
+                        <img src="{{media.file.url}}" class="img-thumbnail w-100 h-100" />
+                        {% elif "video" in media.media_type %}
+                        <video class="img-thumbnail w-100 h-100">
+                            <source src="{{ media.file.url }}" type="video/mp4" autoplay loop muted/>
+                        </video>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                </div>
+                <div class="col-8">
+                    <div id="imageCarousel-{{forloop.counter0}}" class="carousel slide">
+                        <div class="carousel-inner">
+                            {% for media in product.media.all %}
+                            <div class="carousel-item {% if forloop.first %} active {% endif %} w-100" style="height:200px;">
+                                {% if "image" in media.media_type %}
+                                <img src="{{media.file.url}}" class="img-thumbnail w-100 h-100" />
+                                {% elif "video" in media.media_type %}
+                                <video controls class="w-100 h-100">
+                                    <source src="{{ media.file.url }}" type="video/mp4" loop muted/>
+                                </video>
+                                {% endif %}
+                            </div>
+                            {% endfor %}
+                        </div>
+                        <button class="carousel-control-prev" type="button"
+                            data-bs-target="#imageCarousel-{{forloop.counter0}}" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon bg-dark rounded-5" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button"
+                            data-bs-target="#imageCarousel-{{forloop.counter0}}" data-bs-slide="next">
+                            <span class="carousel-control-next-icon bg-dark rounded-5" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+
+        <div class="col fs-5">
+            <div class="row mb-3 border-bottom">
+                <h1 class="fs-2 fw-bold mb-3">
+                    {{ product.name }}
+                </h1>
+
+            </div>
+
+            {% if product.offer %}
+
+            <div class="row">
+                <div class="col">
+                    <span class="badge bg-danger"> - %{{product.offer|floatformat:"0"}} </span>
+                    <span>{{product.discounted_price|floatformat:"2"}} <sup>جنية</sup></span>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col">
+                    <span class="text-muted text-decoration-line-through fs-6 fw-lighter">السعر: {{product.price}}
+                        جنية</span>
+                </div>
+            </div>
+            {% else %}
+            <div class="row mb-3">
+                <div class="col fw-medium">
+                    {{product.price|floatformat:0}} <sup>جنية</sup>
+                </div>
+            </div>
+            {% endif %}
+
+            {% if product.vendor.name %}
+            <div class="row mb-3">
+                <div class="col">
+                    <span class="fw-medium">العلامة التجارية/ </span>
+                    <a href="/products/?vendor={{product.vendor.id}}" class="text-decoration-none">
+                        {{product.vendor.name}}
+                    </a>
+                </div>
+            </div>
+            {% endif %}
+
+
+            {% if product.description %}
+            <div class="row mb-3">
+                <div class="col">
+                    <span class="fw-medium d-block">وصف المنتج/</span>
+                    <span style="white-space: pre-wrap;">{{product.description}}</span>
+                </div>
+            </div>
+            {% endif %}
+
+            <div class="row mb-3">
+                <div class="col">
+                    <span class="fw-medium">الفئة/</span>
+                    <a href="/products/?category={{product.category.id}}" class="text-decoration-none">
+                        {{product.category.name}}
+                    </a>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col">
+                    <span class="fw-medium">تاريخ توفر المنتج/</span> {{product.created_at|date:"D d M Y"}}
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

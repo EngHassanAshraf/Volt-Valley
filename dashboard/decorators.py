@@ -14,7 +14,7 @@ def is_not_auth(view_func):
 def is_auth(view_func):
     def wrapper(request, *args, **kwargs):
         if not request.user.is_authenticated:
-            return redirect("mainpages:index")
+            return redirect("store:index")
         else:
             return view_func(request, *args, **kwargs)
 
@@ -40,6 +40,6 @@ def is_admin(view_func):
 #                 group = request.user.groups.all()[0].name
 #                 if group in allowed:
 #                     return view_func(request, *args, **kwargs)
-#             return redirect("mainpages:index")
+#             return redirect("store:index")
 #         return wrapper
 #     return decorator

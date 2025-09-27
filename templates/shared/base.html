@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+{% load static %}
+<html dir="auto">
+
+<head>
+  <title>{{ title }} &nbsp; | &nbsp; Volt Valley</title>
+  {% include "shared/head.html" %}
+</head>
+
+<body {% if 'products' in request.path %} style="padding-left: 300px;" {% endif %}>
+
+  {% include "shared/navbar.html" %}

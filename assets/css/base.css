@@ -1,0 +1,10 @@
+:root{
+    --primary-color: #1d5084;
+    --secondary-color: #e4e4e4;
+    --light-color: white;
+}
+
+body{
+    color: var(--primary-color) !important;
+    font-family: Roboto,'Courier New', Courier, monospace;
+}

@@ -1,0 +1,212 @@
+nav {
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0px 0px 5px gray;
+    background-color: var(--secondary-color);
+}
+
+nav .head0 {
+    height: 15px;
+    background-color: var(--primary-color);
+    transition: opacity 0.5s, height 0.5s;
+}
+
+nav .head-underline {
+    opacity: 0;
+    height: 0;
+    background-color: var(--primary-color);
+    transition: opacity 0.5s, height 0.5s;
+}
+
+nav .head1 {
+    flex: 1;
+    padding-top: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+nav .head1 .sidebar-trigger {
+    border: 0;
+    outline: none;
+    display: none;
+    color: var(--primary-color);
+    background-color: var(--secondary-color);
+    padding: 1px 10px;
+    margin: 0 10px;
+    font-size: 25px;
+    border-radius: 3px;
+}
+
+nav .head1 .sidebar-trigger:hover {
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+}
+
+nav .head1 .homeimage{
+    width: 300px;
+    padding-left: 5px;
+    display: flex;
+    align-items: center;
+}
+
+nav .head1 .homeimage img{
+    width: 300px;
+}
+
+nav .head1 .homeimage  .second-home{
+    display: none;
+}
+
+
+nav .head1 .form-container {
+    flex: 0.75;
+    height: 100%;
+    padding: 0px 10px;
+}
+
+nav .head1 form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+nav .head1 form input,
+nav .head1 form button {
+    background-color: var(--light-color);
+    color: var(--primary-color);
+    border: 1px solid rgb(214, 214, 214);
+    font-size: 20px;
+    outline: none;
+}
+
+nav .head1 form input {
+    flex: 1;
+    padding: 5px 10px;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border-right: none;
+}
+
+nav .head1 form input::placeholder {
+    color: lightgray;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+nav .head1 form button {
+    padding: 5px 20px;
+    outline: none;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+nav .head1 form button:hover {
+    background-color: gray;
+    color: white;
+}
+
+nav .head1 .contacts {
+    width: 200px;
+    height: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-right: 20px;
+}
+
+nav .head1 .contacts a {
+    width: 50px;
+    margin: 0px 2px;
+}
+
+nav .nav-links {
+    background-color: var(--primary-color);
+    height: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 0.5s, height 0.5s;
+}
+
+nav .nav-links .link {
+    color: white !important;
+    font-weight: 500;
+    cursor: pointer;
+    height: 100%;
+    width: 120px;
+    text-align: center;
+    border-radius: 0%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+nav .nav-links .link:hover {
+    background-color: var(--secondary-color) !important;
+    color: var(--primary-color) !important;
+}
+
+nav .nav-links .link.active {
+    background-color: var(--secondary-color) !important;
+    color: var(--primary-color) !important;
+    border: 0;
+}
+
+
+@media (max-width:885px) {
+
+    nav .head1 {
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    nav .head1 .homeimage {
+        padding: 5px 0;
+    }
+
+
+    nav .head1 form {
+        padding: 5px 0;
+        width: 500px;
+    }
+
+nav .head1 .contacts {
+        display: none;
+    }
+
+    .form-container {
+        display: flex;
+        width: 100%;
+        justify-content: center;
+        align-items: center;
+    }
+
+    nav .head1 .sidebar-trigger {
+        display: block;
+    }
+
+    nav .head0,
+    nav .nav-links {
+        opacity: 0;
+        height: 0;
+    }
+
+    nav .nav-links .link{
+        display: none;
+    }
+
+    nav .head-underline {
+        opacity: 1;
+        height: 10px;
+    }
+}
+
+
+
+@media (max-width:550px) {
+    nav .head1 form {
+        width: 400px;
+    }
+}

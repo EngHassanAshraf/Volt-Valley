@@ -1,0 +1,98 @@
+<div class="sidebar col-md-3 col-lg-2 p-0 fw-bolder bg-light border border-top-0 border-bottom-0 rounded-end-3 rounded-bottom-0">
+    <div class="offcanvas-lg  rounded-end-3 rounded-bottom-0 h-100 overflow-y-auto" id="sidebarMenu" aria-labelledby="sidebarMenuLabel">
+        <div class="offcanvas-body d-lg-flex flex-column p-0 pt-3 pt-lg-3">
+          <ul class="list-unstyled px-5">
+            <li class="list-item mb-3">
+                <a class="nav-link d-flex align-items-center gap-2 active" aria-current="page" href="{% url 'store:index' %}">
+                    <span class="bi bi-house-door">
+                        واجهة الموقع الرئيسية
+                    </span>
+                </a>
+            </li>    
+            <hr class="list-divider">
+            <li class="list-item mb-3">
+              <a
+                class="nav-link d-flex align-items-center gap-2 active" aria-current="page"
+                href="{% url 'dashboard:index' %}">
+                <span class="bi bi-speedometer2">
+                    لوحة التحكم
+                </span>
+              </a>
+            </li>
+            <li class="list-item mb-3">
+              <a class="nav-link d-flex align-items-center gap-2 active" aria-current="page" href="{% url 'dashboard:departments' %}">
+                <span class="bi bi-diagram-3">
+                    الاقسام
+                </span>
+              </a>
+            </li>
+            <li class="list-item mb-3">
+              <a class="nav-link d-flex align-items-center gap-2" href="{% url 'dashboard:products' %}">
+                <span class="bi bi-box-seam">
+                    المنتجات
+                </span>
+              </a>
+            </li>
+            <li class="list-item mb-3">
+
+              <a class="nav-link d-flex align-items-center gap-2 disabled text-muted" href="#">
+                <span class="bi bi-newspaper">
+                    المدونة
+                </span>
+              </a>
+            </li>
+            {% for group in request.user.groups.all %}
+            {% if group.name == "admin"  %}
+            <li class="list-item mb-3">
+              <a class="nav-link d-flex align-items-center gap-2" href="{% url 'dashboard:visitors-analytics' %}">
+                <span class="bi bi-people">
+                    زوار الموقع
+                </span>
+              </a>
+            </li>
+            {% endif %}
+            {% endfor %}
+            <li class="list-item mb-3">
+              <a class="nav-link d-flex align-items-center gap-2 disabled text-muted" href="#">
+                <span class="bi bi-clipboard-data">
+                    التقارير
+                </span>
+              </a>
+            </li>
+            <hr class="list-divider">
+            <li class="list-item mb-3">
+              <a class="nav-link d-flex align-items-center gap-2 disabled text-muted" href="#">
+                <span class="bi bi-gear">
+                    الإعدادت
+                </span>
+              </a>
+            </li>
+            {% for group in request.user.groups.all %}
+            {% if group.name == "admin"  %}
+            <li class="list-item mb-3">
+              <a class="nav-link d-flex align-items-center gap-2 " href="{% url 'dashboard:users' %}">
+                <span class="bi bi-person">
+                    مديري الموقع
+                </span>
+              </a>
+            </li>
+            {% endif %}
+            {% endfor %}
+            <li class="list-item mb-3">
+              <a class="nav-link d-flex align-items-center gap-2 " href="{% url 'dashboard:register' %}">
+                <span class="bi bi-person-add">
+                    إنشاء مدير
+                </span>
+              </a>
+            </li>
+            <li class="list-item mb-3">
+              <a class="nav-link d-flex align-items-center gap-2 text-danger" href="{% url 'dashboard:logout' %}">
+                <span class="bi bi-door-open">
+                    تسجيل خروج
+                </span>
+              </a>
+            </li>
+          </ul>
+        </div>
+    </div>
+</div>

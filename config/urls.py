@@ -6,7 +6,7 @@ from . import settings
 urlpatterns = (
     [
         path("admin/", admin.site.urls),
-        path("", include("dashboard.urls")),
+        path("dashboard/", include("dashboard.urls")),
         path("", include("store.urls")),
     ]
     + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

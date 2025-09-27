@@ -4,7 +4,7 @@ from .views import (
     products,
 )
 
-app_name = "mainpages"
+app_name = "store"
 urlpatterns = [
     path("", index, name="index"),
     # products

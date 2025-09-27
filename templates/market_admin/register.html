@@ -1,0 +1,88 @@
+{% extends "shared/admin_panel.html" %}
+{% block content %}
+
+<div class="container-fluid py-5 mb-1 mx-auto bg-light border border-top-0 rounded-bottom-3 text-center">
+    <h1 class="display-5 fw-bold">إنشاء مدير للموقع</h1>
+    <p class="lead text-muted">
+        يمكنك إنشاء مدير جديد للموقع بكلمة مرور قوية
+        وسيكون له صلحيات إدارة الموقع من خلاله الحساب الخاص به
+        ولكن احذر من تسرب بياناتك
+    </p>
+</div>
+
+<div class="container-fluid col-md-5 py-4">
+    <form id="registerForm" method="post" class="needs-validation" novalidate>
+        {% csrf_token %}
+        <div
+            class="row row-cols-1 row-cols-lg-2 mb-3 g-lg-5 g-md-5 mb-3 d-flex align-items-start justify-content-start">
+            <div class="col mb-3">
+                <div class="row">
+                    {{form.first_name}}
+                    <div class="invalid-feedback">
+                        <span class="fw-bold" style="font-size: small;">
+                            • يجب ان يكون غير فارغ - اكثر من 3 حروف - اقل من 50 حرف
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="row">
+                    {{form.last_name}}
+                    <div class="invalid-feedback">
+                        <span class="fw-bold" style="font-size: small;">
+                            • يجب ان يكون غير فارغ - اكثر من 3 حروف - اقل من 50 حرف
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mb-3 d-flex align-items-start justify-content-start">
+            {{form.email}}
+            <div class="invalid-feedback">
+                <span class="fw-bold" style="font-size: small;">
+                    • يرجى إدخال إيميل صحيح
+                </span>
+            </div>
+        </div>
+        <div
+            class="row row-cols-1 row-cols-lg-2 mb-3 g-lg-5 g-md-5 mb-3 d-flex align-items-start justify-content-start">
+
+            <div class="col mb-3">
+                <div class="row">
+                    {{form.password1}}
+                    <div class="invalid-feedback">
+                        <pre class="fw-bold" style="font-size: small;">
+كلمة المرور يجب ان تحتوي 
+• حرف صغير a - z
+• حرف كبير A - Z
+• رقم 0 - 9
+• رمز ! @ # $ % ^ & * _ -</pre>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="row">
+                    {{form.password2}}
+                    <div class="invalid-feedback">
+                        <span class="fw-bold" style="font-size: small;">
+                            • كلمة المرور ليست متطابقة
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row d-flex align-items-center justify-content-start">
+            <div class="col-auto">
+                <button type="submit" class="form-control btn btn-primary fw-bold" id="id_submit">
+                    إنشاء
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+
+{% endblock content %}

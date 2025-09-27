@@ -24,19 +24,19 @@ class ProductFilter(FilterSet):
     name = CharFilter(
         lookup_expr="icontains",
         widget=TextInput(attrs={"class": "form-control p-1"}),
-        label="الإسم",
+        label="Name",
     )
 
     price = RangeFilter(
         field_name="price",
-        label="السعر",
+        label="Price",
     )
 
     category = ModelMultipleChoiceFilter(
         field_name="category",
         queryset=categories,
         widget=CheckboxSelectMultiple(attrs={"class": "bg-white text-black p-1"}),
-        label="الفئة",
+        label="Category",
     )
 
     class Meta:
