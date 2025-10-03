@@ -1,5 +1,5 @@
 from nanoid import generate
-from slugify import slugify
+from django.utils.text import slugify
 
 from django.core.exceptions import ValidationError
 from django.db import models
@@ -117,9 +117,7 @@ class Department(IdSlug, Timestamped, SoftDelete):
             self.title = title
 
         if self.title:
-            base_slug = slugify(
-                self.title, separator="-", lowercase=False, allow_unicode=True
-            )  # Convert name to slug
+            base_slug = slugify(self.title, allow_unicode=True)  # Convert name to slug
             unique_id = generate(size=6)  # nanoid.generate a short unique ID
             self.slug = f"{base_slug}-{unique_id}"  # Create unique slug
         super().save(*args, **kwargs)
@@ -152,7 +150,7 @@ class Category(IdSlug, Timestamped):
         """nanoid.generate a unique slug based on the category name"""
         if not self.slug:
             base_slug = slugify(
-                self.name, separator="-", lowercase=False, allow_unicode=True
+                self.name, allow_unicode=True
             )  # Convert name to slug
             unique_id = generate(size=6)  # nanoid.generate a short unique ID
             self.slug = f"{base_slug}-{unique_id}"  # Create unique slug
@@ -209,7 +207,7 @@ class Product(IdSlug, Timestamped, SoftDelete):
         """nanoid.generate a unique slug based on the product name"""
         if not self.slug:
             base_slug = slugify(
-                self.name, separator="-", lowercase=False, allow_unicode=True
+                self.name, allow_unicode=True
             )  # Convert name to slug
             unique_id = generate(size=6)  # nanoid.generate a short unique ID
             self.slug = f"{base_slug}-{unique_id}"  # Create unique slug
