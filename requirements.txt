@@ -1,0 +1,8 @@
+Django
+django-decouple
+django-filter
+django-ratelimit
+nanoid
+pillow
+psycopg
+whitenoise
