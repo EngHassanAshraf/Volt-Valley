@@ -11,7 +11,7 @@ nav .head0 {
     transition: opacity 0.5s, height 0.5s;
 }
 
-nav .head-underline {
+.head-underline {
     opacity: 0;
     height: 0;
     background-color: var(--primary-color);
@@ -43,18 +43,18 @@ nav .head1 .sidebar-trigger:hover {
     color: var(--secondary-color);
 }
 
-nav .head1 .homeimage{
+nav .head1 .homeimage {
     width: 300px;
     padding-left: 5px;
     display: flex;
     align-items: center;
 }
 
-nav .head1 .homeimage img{
+nav .head1 .homeimage img {
     width: 300px;
 }
 
-nav .head1 .homeimage  .second-home{
+nav .head1 .homeimage .second-home {
     display: none;
 }
 
@@ -106,7 +106,7 @@ nav .head1 form button:hover {
     color: white;
 }
 
-nav .head1 .contacts {
+.contacts {
     width: 200px;
     height: 100%;
     display: flex;
@@ -115,7 +115,7 @@ nav .head1 .contacts {
     margin-right: 20px;
 }
 
-nav .head1 .contacts a {
+.contacts a {
     width: 50px;
     margin: 0px 2px;
 }
@@ -129,7 +129,7 @@ nav .nav-links {
     transition: opacity 0.5s, height 0.5s;
 }
 
-nav .nav-links .link {
+.link {
     color: white !important;
     font-weight: 500;
     cursor: pointer;
@@ -142,15 +142,106 @@ nav .nav-links .link {
     justify-content: center;
 }
 
-nav .nav-links .link:hover {
+.link:hover {
     background-color: var(--secondary-color) !important;
     color: var(--primary-color) !important;
 }
 
-nav .nav-links .link.active {
+.link.active {
     background-color: var(--secondary-color) !important;
     color: var(--primary-color) !important;
     border: 0;
+}
+
+.nav-sidebar {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+}
+
+.nav-sidebar-elements {
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+}
+
+.nav-sidebar-head {
+    border-bottom: 3px solid var(--primary-color);
+    display: flex;
+    height: 70px;
+    padding: 5px 10px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-sidebar-head p {
+    margin: 0;
+    padding: 0;
+    font-size: 25px;
+    font-weight: 500;
+    text-align: center;
+    flex: 1;
+}
+
+.nav-sidebar-head button {
+    color: var(--primary-color);
+    background-color: var(--secondary-color);
+    border: 1px solid var(--primary-color);
+    border-radius: 10px;
+    padding: 5px 10px;
+    font-size: 15px;
+    font-weight: 900;
+}
+
+.nav-sidebar-head button:hover {
+    color: var(--secondary-color);
+    background-color: var(--primary-color);
+}
+
+.nav-sidebar-links {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.nav-sidebar-links .link {
+    width: 100%;
+    color: var(--primary-color) !important;
+}
+
+.nav-sidebar-links .link.active {
+    color: var(--secondary-color) !important;
+    background-color: var(--primary-color) !important;
+}
+
+.nav-sidebar-links .link:hover {
+    color: var(--secondary-color) !important;
+    background-color: var(--primary-color) !important;
+}
+
+.sidebar-contacts {
+    width: 100%;
+    border-top: 3px solid var(--primary-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+    background-color: var(--secondary-color);
+}
+
+.sidebar-contacts a {
+    margin: 5px;
 }
 
 
@@ -172,7 +263,7 @@ nav .nav-links .link.active {
         width: 500px;
     }
 
-nav .head1 .contacts {
+    nav .head1 .contacts {
         display: none;
     }
 
@@ -193,17 +284,21 @@ nav .head1 .contacts {
         height: 0;
     }
 
-    nav .nav-links .link{
+    nav .nav-links .link {
         display: none;
     }
 
-    nav .head-underline {
+    .head-underline {
         opacity: 1;
         height: 10px;
     }
 }
 
-
+@media (min-width:885px) {
+    .nav-sidebar {
+        display: none;
+    }
+}
 
 @media (max-width:550px) {
     nav .head1 form {

@@ -2,10 +2,10 @@ from pathlib import Path
 from decouple import config
 
 BASE_DIR = Path(__file__).resolve().parent.parent
+
 SECRET_KEY = config("SECRET_KEY")
 DEBUG = config("DEBUG", cast=bool)
-
-ALLOWED_HOSTS = ["127.0.0.1", "b7c93325494a.ngrok-free.app"]
+ALLOWED_HOSTS = config("ALLOWED_HOSTS").split(",")
 
 DEFAULT_APPS = [
     "django.contrib.admin",

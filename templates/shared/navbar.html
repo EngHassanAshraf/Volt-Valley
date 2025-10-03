@@ -7,7 +7,7 @@
             <img class="home-image" src="{% static 'images/volt_valley.png' %}" alt="Volt Valley">
         </a>
         <div class="form-container">
-            <button class="sidebar-trigger">
+            <button class="sidebar-trigger open-navsidebar">
                 <i class="bi bi-list"></i>
             </button>
 
@@ -65,6 +65,57 @@
     </div>
     <div class="head-underline"></div>
 </nav>
-<!-- 
-<div class="sidebar bg-black">
-</div> -->
+
+<div class="nav-sidebar">
+    <div class="nav-sidebar-elements">
+        <div class="nav-sidebar-head">
+            <p>Volt Valley</p>
+            <button class="close-navsidebar">X</button>
+        </div>
+        <div class="nav-sidebar-links">
+
+            <a class="btn link {% if request.path == '/' %}active{% endif %}" href="{% url 'store:index' %}"
+                aria-current="page">
+                Home
+            </a>
+
+            <a class="btn link {% if 'products' in request.path %}active{% endif %}" href="{% url 'store:products' %}">
+                Products
+            </a>
+
+            <a class="btn link {% if 'departments' in request.path %}active{% endif %}" href="#">
+                Departments
+            </a>
+
+            <a class="btn link {% if 'categories' in request.path %}active{% endif %}" href="#">
+                Categories
+            </a>
+
+            <a class="btn link {% if 'blog' in request.path %}active{% endif %}" href="#">
+                Blog
+            </a>
+
+            <a class="btn link {% if 'customer-service' in request.path %}active{% endif %}" href="#">
+                Customer Service
+            </a>
+
+            <a class="btn link {% if 'about' in request.path %}active{% endif %}" href="#">
+                About
+            </a>
+
+        </div>
+        <div class="sidebar-contacts">
+            <a class="btn border-1 border-secondary rounded-1" href='tel:+201013115208'>
+                <i class="bi bi-telephone text-secondary"></i>
+            </a>
+            <a class="btn border-1 border-success rounded-1" href='https://wa.me/+201013115208'>
+                <i class="bi bi-whatsapp text-success"></i>
+            </a>
+            <a class="btn border-1 border-primary rounded-1"
+                href='https://www.facebook.com/people/MG-Tech/100090910422467/'>
+                <i class="bi bi-facebook text-primary"></i>
+            </a>
+        </div>
+        <div class="head-underline"></div>
+    </div>
+</div>

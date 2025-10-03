@@ -149,9 +149,7 @@ class Category(IdSlug, Timestamped):
     def save(self, *args, **kwargs):
         """nanoid.generate a unique slug based on the category name"""
         if not self.slug:
-            base_slug = slugify(
-                self.name, allow_unicode=True
-            )  # Convert name to slug
+            base_slug = slugify(self.name, allow_unicode=True)  # Convert name to slug
             unique_id = generate(size=6)  # nanoid.generate a short unique ID
             self.slug = f"{base_slug}-{unique_id}"  # Create unique slug
         super().save(*args, **kwargs)
@@ -206,9 +204,7 @@ class Product(IdSlug, Timestamped, SoftDelete):
     def save(self, *args, **kwargs):
         """nanoid.generate a unique slug based on the product name"""
         if not self.slug:
-            base_slug = slugify(
-                self.name, allow_unicode=True
-            )  # Convert name to slug
+            base_slug = slugify(self.name, allow_unicode=True)  # Convert name to slug
             unique_id = generate(size=6)  # nanoid.generate a short unique ID
             self.slug = f"{base_slug}-{unique_id}"  # Create unique slug
         super().save(*args, **kwargs)
